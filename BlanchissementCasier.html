@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ddd;
+  text-align: center;
+}
+
+#doc {
+  position: relative;
+  width: 800px;
+  margin: auto;
+  background: #f4efe7;
+  padding: 30px;
+  text-align: left;
+  overflow: hidden;
+}
+
+#doc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url('filigrane.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  opacity: 0.10; /* 👈 règle la transparence ici */
+
+  pointer-events: none;
+}
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.header {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.section {
+  margin-top: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.left-logos {
+  display: flex;
+  gap: 10px;
+}
+
+.logo {
+  width: 70px;
+  height: auto;
+}
+
+.center-sign {
+  text-align: center;
+  flex: 1;
+  font-size: 16px;
+}
+
+.right-signature {
+  text-align: right;
+}
+
+.signature-img {
+  width: 180px;
+  height: auto;
+}
+
+.signature-hand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  text-align: right;
+  margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Générateur Document Justice RP</h2>
+
+<input id="name" placeholder="Nom du demandeur"><br><br>
+<input id="date" placeholder="Date"><br><br>
+<input id="ref" placeholder="Référence"><br><br>
+<input id="judge" placeholder="Nom du juge signataire"><br><br>
+
+<button onclick="generate()">📄 Générer & Télécharger</button>
+
+<br><br>
+
+<div id="doc">
+
+<div class="header">
+  <img src="banniere.png" style="width:100%;">
+</div>
+
+<h1>COUR SUPRÊME DE JUSTICE</h1>
+<h2>BUREAU DU HAUT JUGE</h2>
+
+<div class="section">
+<p><span class="bold">Date :</span> <span id="d"></span></p>
+<p><span class="bold">Référence :</span> <span id="r"></span></p>
+<p><span class="bold">Objet :</span> Décision officielle relative à la demande de blanchiment de casier judiciaire</p>
+<p><span class="bold">Demandeur :</span> <span id="n"></span></p>
+</div>
+
+<hr>
+
+<p><span class="bold">Au nom de la Loi de l’État de San Andreas,</span></p>
+
+<p>
+Moi, Haut Juge de la Cour Suprême de San Andreas, après examen approfondi du dossier présenté, des antécédents judiciaires du demandeur ainsi que des éléments fournis attestant de sa réhabilitation sociale et professionnelle, rends la décision suivante :
+</p>
+
+<p class="bold">Considérant :</p>
+<ul>
+<li>Que le demandeur a purgé l’intégralité des peines prononcées à son encontre ;</li>
+<li>Qu’aucune récidive n’a été constatée sur une période significative ;</li>
+<li>Que le comportement du demandeur démontre une volonté manifeste de réinsertion et de respect des lois en vigueur ;</li>
+<li>Que les témoignages et documents fournis appuient une conduite exemplaire récente.</li>
+</ul>
+
+</ul>
+
+<p class="bold">Par ces motifs :</p>
+
+<p>La Cour décide de :</p>
+
+<ul>
+<li>Article 1 - Blanchiment du casier judiciaire. Le casier judiciaire du demandeur est officiellement blanchi, sous réserve des archives internes conservées par les autorités compétentes.</li>
+<li>Article 2 - Effets de la décision À compter de ce jour, le demandeur est juridiquement considéré comme n’ayant aucun antécédent pénal, sauf dans le cadre d’enquêtes judiciaires spécifiques nécessitant l’accès aux dossiers scellés.</li>
+<li>Article 3 - Conditions Toute nouvelle infraction entraînera la réouverture potentielle des dossiers précédemment blanchis.</li>
+</ul>
+
+<div class="footer">
+<p class="bold">NOTE OFFICIELLE :</p>
+<p class="bold">Ce document est reconnu comme preuve légale dans toutes les juridictions de l’État de San Andreas. Toute falsification ou usage frauduleux est passible de poursuites judiciaires.</p>
+</div>
+
+<hr>
+
+<p>Fait au Palais de Justice de San Andreas en date du  :  <span id="d2"></span></p>
+
+<div class="bottom">
+
+  <div class="left-logos">
+    <img src="logo1.png" class="logo">
+    <img src="logo2.png" class="logo">
+  </div>
+
+  <div class="center-sign">
+    <p>Juge signataire :</p>
+    <p class="bold" id="judgeName"></p>
+  </div>
+
+</div>
+
+<div id="signatureText" class="signature-hand"></div>
+
+</div>
+
+<script>
+function generate() {
+  let name = document.getElementById("name").value;
+  let date = document.getElementById("date").value;
+  let ref = document.getElementById("ref").value;
+  let judge = document.getElementById("judge").value;
+
+  document.getElementById("n").innerText = name;
+  document.getElementById("d").innerText = date;
+  document.getElementById("d2").innerText = date;
+  document.getElementById("r").innerText = ref;
+
+  document.getElementById("judgeName").innerText =
+    judge ? "Juge " + judge : "";
+
+  // ✍️ Signature manuscrite automatique
+  document.getElementById("signatureText").innerText = judge;
+
+  html2canvas(document.getElementById("doc")).then(canvas => {
+    let link = document.createElement("a");
+    link.download = "document-rp.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
