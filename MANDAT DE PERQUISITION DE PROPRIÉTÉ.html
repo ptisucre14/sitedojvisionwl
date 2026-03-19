@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ddd;
+  text-align: center;
+}
+
+#doc {
+  position: relative;
+  width: 800px;
+  margin: auto;
+  background: #f4efe7;
+  padding: 30px;
+  text-align: left;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.header {
+  width: 100%;
+}
+
+.section {
+  margin-top: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.main-line {
+  font-size: 16px;
+}
+
+.sub-line {
+  font-size: 13px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.left-logos {
+  display: flex;
+  gap: 10px;
+}
+
+.logo {
+  width: 125px;
+}
+
+.center-sign {
+  text-align: center;
+  flex: 1;
+  font-size: 16px;
+}
+
+.signature-hand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  text-align: right;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Générateur Document Justice RP</h2>
+
+<input id="date" placeholder="Date"><br><br>
+<input id="ref" placeholder="Référence"><br><br>
+<textarea id="adresse" placeholder="Nom + une adresse par ligne"></textarea><br><br>
+<textarea id="rechercher" placeholder="Un élément par ligne"></textarea><br><br>
+<input id="expiration" placeholder="Expiration"><br><br>
+<input id="fonctionSignataire" placeholder="Fonction"><br><br>
+<input id="nomSignataire" placeholder="Signataire"><br><br>
+
+<button onclick="generate()">📄 Générer & Télécharger</button><br><br>
+
+<div id="doc">
+
+<div class="header">
+  <img src="banniere.png" style="width:100%;">
+</div>
+
+<h1>MANDAT DE PERQUISITION DE PROPRIÉTÉ</h1>
+
+<div class="section">
+<p><span class="bold">Date :</span> <span id="d"></span></p>
+<p><span class="bold">Référence :</span> <span id="r"></span></p>
+</div>
+
+<hr>
+
+<p>
+  Moi, <span id="nom2" class="bold"></span>, 
+  <span id="fonction2" class="bold"></span> de l'État de San Andreas, 
+  autorise, en vertu du chapitre II du code des mandats, 
+  les forces de l'ordre de l'État de San Andreas, 
+  à perquisitionner <span class="bold">le(s) lieu(x) déterminé(s) listé(s) ci-dessous :</span>
+</p> 
+
+<ul id="chargesList"></ul>
+
+<p class="bold">Cette perquisition sera menée afin de rechercher :</p> 
+
+<ul id="rechercherList"></ul>
+
+<hr>
+
+<p class="bold main-line">
+  Mandat délivré en date du : <span id="d2"></span>
+</p>
+
+<p class="bold sub-line">
+  Expiration du mandat le : <span id="expiration1"></span>
+</p>
+
+<div class="bottom">
+
+  <div class="left-logos">
+    <img src="logo1.png" class="logo">
+    <img src="logo2.png" class="logo">
+  </div>
+
+  <div class="center-sign">
+    <p>Fonction : <span id="fonction" class="bold"></span></p>
+    <p>Signataire : <span id="nom" class="bold"></span></p>
+  </div>
+
+</div>
+
+<div id="signatureText" class="signature-hand"></div>
+
+</div>
+
+<script>
+function generate() {
+
+  let date = document.getElementById("date").value;
+  let ref = document.getElementById("ref").value;
+  let expiration = document.getElementById("expiration").value;
+  let fonction = document.getElementById("fonctionSignataire").value;
+  let nom = document.getElementById("nomSignataire").value;
+
+  let adresseArray = document.getElementById("adresse").value.split("\n");
+  let rechercherArray = document.getElementById("rechercher").value.split("\n");
+
+  document.getElementById("d").innerText = date;
+  document.getElementById("d2").innerText = date;
+  document.getElementById("r").innerText = ref;
+  document.getElementById("expiration1").innerText = expiration;
+
+  document.getElementById("fonction").innerText = fonction;
+  document.getElementById("fonction2").innerText = fonction;
+
+  document.getElementById("nom").innerText = nom;
+  document.getElementById("nom2").innerText = nom;
+
+  document.getElementById("signatureText").innerText = nom;
+
+  // LISTE ADRESSES
+  let list1 = document.getElementById("chargesList");
+  list1.innerHTML = "";
+
+  adresseArray.forEach(ligne => {
+    if (ligne.trim() !== "") {
+      let li = document.createElement("li");
+      li.textContent = ligne;
+      list1.appendChild(li);
+    }
+  });
+
+  // LISTE RECHERCHE
+  let list2 = document.getElementById("rechercherList");
+  list2.innerHTML = "";
+
+  rechercherArray.forEach(ligne => {
+    if (ligne.trim() !== "") {
+      let li = document.createElement("li");
+      li.textContent = ligne;
+      list2.appendChild(li);
+    }
+  });
+
+  html2canvas(document.getElementById("doc")).then(canvas => {
+    let link = document.createElement("a");
+    link.download = "mandat-perquisition.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
