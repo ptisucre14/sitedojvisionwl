@@ -70,17 +70,6 @@ BANNIERE HAUT PAGE
   display: block;
 }
 
-/* =============================
-ZONE TEXTE DOCUMENT
-============================= */
-
-.content {
-  padding: 30px 60px 60px 60px;
-  text-align: left;
-  position: relative;
-  height: 100%;
-}
-
 /* TITRES */
 
 h1 {
@@ -126,7 +115,7 @@ ZONE SIGNATURE BAS DOCUMENT
 
 .signature-block {
   position: absolute;
-  bottom: 60px;
+  bottom: 40px;
   left: 60px;
   right: 60px;
 
@@ -144,7 +133,6 @@ ZONE SIGNATURE BAS DOCUMENT
 /* BLOC CENTRE (fonction + nom) */
 
 .signataire {
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -154,6 +142,7 @@ ZONE SIGNATURE BAS DOCUMENT
   font-family: 'Great Vibes', cursive;
   font-size: 48px;
   transform: rotate(-6deg);
+  white-space: nowrap;
 }
 
 /* =============================
@@ -182,6 +171,11 @@ FORMULAIRE HAUT PAGE
 
   box-sizing: border-box;
 
+}
+
+.content {
+  padding: 30px 60px 200px 60px; /* ← espace en bas */
+  text-align: left;
 }
 
 </style>
@@ -265,42 +259,34 @@ DOCUMENT FINAL
 <div class="footer"> <p class="bold">NOTE OFFICIELLE :</p> <p>Ce document est reconnu comme preuve légale dans toutes les juridictions de l’État de San Andreas. Toute falsification ou usage frauduleux est passible de poursuites judiciaires.</p> 
 </div> 
 
+
 <hr>
 
 <p>Fait au Palais de Justice de San Andreas en date du :
 <span id="d2"></span>
 </p>
 
-<!-- LOGOS -->
-<div class="bottom">
+<div class="signature-block">
+
+  <!-- GAUCHE (logos) -->
   <div>
     <img src="logo1.png" class="logo">
     <img src="logo2.png" class="logo">
   </div>
-</div>
-
-<!-- SIGNATURE + SIGNATAIRE -->
-<div class="signature-block">
 
   <!-- CENTRE -->
   <div class="signataire">
-    <p>
-      Fonction : <span id="fonction" class="bold"></span>
-    </p>
-
-    <p>
-      Signataire : <span id="nom" class="bold"></span>
-    </p>
+    <p>Fonction : <span id="fonction" class="bold"></span></p>
+    <p>Signataire : <span id="nom" class="bold"></span></p>
   </div>
 
   <!-- DROITE -->
   <div id="signatureText" class="signature-hand"></div>
 
 </div>
+
 </div> <!-- FIN bottom -->
-
 </div> <!-- FIN content -->
-
 </div> <!-- FIN doc -->
 
 
