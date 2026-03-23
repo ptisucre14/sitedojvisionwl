@@ -278,30 +278,35 @@ DOCUMENT FINAL
 
 <div class="bottom">
 
-<!-- LOGOS -->
+  <!-- LOGOS -->
 
-<div>
+  <div>
 
-<img src="logo1.png" class="logo">
-<img src="logo2.png" class="logo">
+    <img src="logo1.png" class="logo">
+    <img src="logo2.png" class="logo">
 
-</div>
+  </div>
 
-<!-- SIGNATAIRE CENTRE -->
 
-<div class="center-sign">
+  <!-- SIGNATAIRE CENTRE -->
 
-<p>Fonction :<span id="fonction" class="bold"></span></p>
+  <div class="center-sign">
 
-<p>Signataire :<span id="nom" class="bold"></span></p>
+    <p>
+      Fonction :
+      <span id="fonction" class="bold"></span>
+    </p>
 
-</div>
+    <p>
+      Signataire :
+      <span id="nom" class="bold"></span>
+    </p>
 
-</div>
+    <!-- SIGNATURE MANUSCRITE -->
 
-<!-- SIGNATURE MANUSCRITE -->
+    <div id="signatureText" class="signature-hand"></div>
 
-<div id="signatureText" class="signature-hand"></div>
+  </div>
 
 </div>
 
@@ -337,7 +342,7 @@ function generate() {
   document.getElementById("signatureText").innerText = nom || "";
 
 
-  // Capture document + téléchargement automatique
+  // Attendre chargement police signature
 
   document.fonts.ready.then(() => {
 
@@ -363,7 +368,6 @@ function generate() {
   });
 
 }
-
 </script>
 
 </body>
