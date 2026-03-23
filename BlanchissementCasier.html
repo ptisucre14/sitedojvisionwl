@@ -13,14 +13,12 @@ body {
 }
 
 #doc {
-  width: 210mm;
-  min-height: 297mm;
+  width: 794px;
+  height: 1123px;
   margin: auto;
   background: #f4efe7;
-  padding: 20mm;
   box-sizing: border-box;
   position: relative;
-  text-align: left; /* 🔥 IMPORTANT */
 }
   
 #doc::before {
@@ -109,6 +107,15 @@ h2 {
   margin-top: 10px;
 }
 
+.header img {
+  width: 100%;
+  display: block;
+}
+
+.content {
+  padding: 80px;
+}
+
 </style>
 </head>
 
@@ -127,8 +134,14 @@ h2 {
 
 <div id="doc">
 
-<div class="header">
-  <img src="banniere.png" style="width:100%;">
+  <div class="header">
+    <img src="banniere.png">
+  </div>
+
+  <div class="content">
+    <!-- TOUT ton contenu ici -->
+  </div>
+
 </div>
 
 <h1>COUR SUPRÊME DE JUSTICE</h1>
