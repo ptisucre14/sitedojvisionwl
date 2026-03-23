@@ -75,10 +75,10 @@ ZONE TEXTE DOCUMENT
 ============================= */
 
 .content {
-
   padding: 30px 60px 60px 60px;
   text-align: left;
-
+  position: relative;
+  height: 100%;
 }
 
 /* TITRES */
@@ -125,10 +125,14 @@ ZONE SIGNATURE BAS DOCUMENT
 ============================= */
 
 .signature-block {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  right: 60px;
+
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 30px;
 }
 
 /* LOGOS */
@@ -267,9 +271,7 @@ DOCUMENT FINAL
 <span id="d2"></span>
 </p>
 
-<div class="bottom">
-
-  <!-- LOGOS -->
+<!-- LOGOS -->
 <div class="bottom">
   <div>
     <img src="logo1.png" class="logo">
@@ -277,23 +279,24 @@ DOCUMENT FINAL
   </div>
 </div>
 
-<!-- SIGNATAIRE CENTRÉ -->
+<!-- SIGNATURE + SIGNATAIRE -->
 <div class="signature-block">
 
   <!-- CENTRE -->
   <div class="signataire">
-    <p>Fonction :</p>
-    <p id="fonction" class="bold"></p>
+    <p>
+      Fonction : <span id="fonction" class="bold"></span>
+    </p>
 
-    <p>Signataire :</p>
-    <p id="nom" class="bold"></p>
+    <p>
+      Signataire : <span id="nom" class="bold"></span>
+    </p>
   </div>
 
   <!-- DROITE -->
   <div id="signatureText" class="signature-hand"></div>
 
 </div>
-
 </div> <!-- FIN bottom -->
 
 </div> <!-- FIN content -->
