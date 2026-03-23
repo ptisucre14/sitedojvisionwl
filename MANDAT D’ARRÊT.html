@@ -1,61 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 <meta charset="UTF-8">
+
+<!-- Police signature manuscrite -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<!-- Librairie capture écran -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
 
 <style>
+
+/* =============================
+STYLE GLOBAL PAGE
+============================= */
+
 body {
   font-family: Arial, sans-serif;
   background: #ddd;
   text-align: center;
 }
 
+/* =============================
+FORMAT DOCUMENT A4
+============================= */
+
 #doc {
-  position: relative;
-  width: 800px;
-  margin: auto;
+  width: 794px;
+  height: 1123px;
+  margin: 40px auto;
   background: #f4efe7;
-  padding: 30px;
-  text-align: left;
+  position: relative;
   overflow: hidden;
 }
+
+/* =============================
+FILIGRANE FOND DOCUMENT
+============================= */
 
 #doc::before {
+
   content: "";
+
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
 
-  background-image: url('filigrane.png');
+  width: 80%;
+  height: 80%;
+
+  background: url('filigrane.png') no-repeat center;
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 
-  opacity: 0.10; /* 👈 règle la transparence ici */
+  transform: translate(-50%, -50%);
+
+  opacity: 0.08;
 
   pointer-events: none;
-}
-h1 {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 5px;
+
 }
 
-h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-top: 0;
-}
+/* =============================
+BANNIERE HAUT PAGE
+============================= */
 
-.header {
+.header img {
   width: 100%;
-  height: auto;
-  overflow: hidden;
+  display: block;
 }
+
+/* TITRES */
+
+h1 {
+
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 10px;
+
+}
+
+
+/* SECTIONS */
 
 .section {
   margin-top: 15px;
@@ -65,47 +91,79 @@ h2 {
   font-weight: bold;
 }
 
+/* FOOTER TEXTE */
+
 .footer {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
-.bottom {
+/* =============================
+ZONE SIGNATURE BAS DOCUMENT
+============================= */
+
+.signature-block {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  right: 60px;
+
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 40px;
+  align-items: flex-end;
 }
 
-.left-logos {
-  display: flex;
-  gap: 10px;
-}
+/* LOGOS */
 
 .logo {
-  width: 125px;
-  height: auto;
+  width: 70px;
 }
 
-.center-sign {
+/* BLOC CENTRE (fonction + nom) */
+
+.signataire {
   text-align: center;
-  flex: 1;
-  font-size: 16px;
 }
 
-.right-signature {
-  text-align: right;
-}
-
-.signature-img {
-  width: 180px;
-  height: auto;
-}
+/* SIGNATURE MANUSCRITE */
 
 .signature-hand {
   font-family: 'Great Vibes', cursive;
-  font-size: 42px;
-  text-align: right;
-  margin-top: 10px;
+  font-size: 48px;
+  transform: rotate(-6deg);
+  white-space: nowrap;
+}
+
+/* =============================
+FORMULAIRE HAUT PAGE
+============================= */
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  max-width: 600px;
+
+  margin: auto;
+
+}
+
+.form-grid input {
+
+  width: 100%;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+}
+
+.content {
+  padding: 30px 60px 200px 60px; /* ← espace en bas */
+  text-align: left;
 }
 
 </style>
@@ -115,20 +173,35 @@ h2 {
 
 <h2>Générateur Document Justice RP</h2>
 
-<input id="date" placeholder="Date"><br><br>
-<input id="ref" placeholder="Référence"><br><br>
-<input id="inputSuspect" placeholder="Nom du suspect"><br><br>
-<textarea id="charges" placeholder="Une accusation par ligne"></textarea><br><br>
-<input id="fonctionSignataire"placeholder="Fonction"><br><br>
-<input id="nomSignataire"placeholder="Signataire"><br><br>
+<!-- =============================
+FORMULAIRE UTILISATEUR
+============================= -->
 
-<button onclick="generate()">📄 Générer & Télécharger</button><br><br>
+<div class="form-grid">
+
+<input id="date" placeholder="Date">
+<input id="ref" placeholder="Référence">
+<input id="inputSuspect" placeholder="Nom du suspect">
+<textarea id="charges" placeholder="Une accusation par ligne"></textarea>
+<input id="fonctionSignataire"placeholder="Fonction">
+<input id="nomSignataire"placeholder="Signataire">
+</div>
+
+<br>
+
+<button onclick="generate()">📄 Générer & Télécharger</button>
+
+<!-- =============================
+DOCUMENT FINAL
+============================= -->
 
 <div id="doc">
 
 <div class="header">
-  <img src="banniere.png" style="width:100%;">
+<img src="banniere.png">
 </div>
+
+<div class="content">
 
 <h1>MANDAT D’ARRÊT</h1>
 
@@ -159,29 +232,28 @@ Le bureau du procureur général ORDONNE à toute personne dépositaire de l'aut
 <p>Fait à Los Santos.</p>
 <p>Mandat délivré en date du : <span id="d2"></span></p>
 
-<div class="bottom">
+<div class="signature-block">
 
-  <div class="left-logos">
+  <!-- GAUCHE (logos) -->
+  <div>
     <img src="logo1.png" class="logo">
     <img src="logo2.png" class="logo">
   </div>
 
-<div class="center-sign">
-  <p>
-    Fonction : 
-    <span id="fonction" class="bold"></span>
-  </p>
-  <p>
-    Signataire : 
-    <span id="nom" class="bold"></span>
-  </p>
-</div>
+  <!-- CENTRE -->
+  <div class="signataire">
+    <p>Fonction : <span id="fonction" class="bold"></span></p>
+    <p>Signataire : <span id="nom" class="bold"></span></p>
+  </div>
+
+  <!-- DROITE -->
+  <div id="signatureText" class="signature-hand"></div>
 
 </div>
 
-<div id="signatureText" class="signature-hand"></div>
-
-</div>
+</div> <!-- FIN bottom -->
+</div> <!-- FIN content -->
+</div> <!-- FIN doc -->
 
 <script>
 function generate() {
@@ -237,5 +309,4 @@ function generate() {
 }
 </script>
 </body>
-
 </html>
