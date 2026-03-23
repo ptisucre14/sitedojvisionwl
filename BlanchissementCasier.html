@@ -13,13 +13,16 @@ body {
 }
 
 #doc {
-  position: relative;
-  width: 800px;
+  width: 210mm;
+  min-height: 297mm;
   margin: auto;
   background: #f4efe7;
-  padding: 30px;
-  text-align: left;
-  overflow: hidden;
+  padding: 20mm;
+  box-sizing: border-box;
+  position: relative;
+ display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #doc::before {
@@ -82,7 +85,7 @@ h2 {
 }
 
 .logo {
-  width: 125px;
+  width: 70px;
   height: auto;
 }
 
@@ -213,15 +216,17 @@ function generate() {
   // ✍️ Signature manuscrite automatique
   document.getElementById("signatureText").innerText = judge;
 
-  html2canvas(document.getElementById("doc")).then(canvas => {
-    let link = document.createElement("a");
-    link.download = "document-rp.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  });
-}
+  html2canvas(document.getElementById("doc"), {
+  scale: 2, // qualité HD
+  useCORS: true
+}).then(canvas => {
+  let link = document.createElement("a");
+  link.download = "document-a4.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+});
+
 </script>
 
 </body>
-
 </html>
