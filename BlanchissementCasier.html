@@ -145,10 +145,17 @@ ZONE SIGNATURE BAS DOCUMENT
 /* SIGNATURE MANUSCRITE */
 
 .signature-hand {
+
   font-family: 'Great Vibes', cursive;
-  font-size: 42px;
-  text-align: right;
-  margin-top: 10px;
+
+  font-size: 48px;
+
+  text-align: center;
+
+  margin-top: 15px;
+
+  transform: rotate(-6deg);
+
 }
 
 /* =============================
@@ -306,9 +313,12 @@ DOCUMENT FINAL
 
     <div id="signatureText" class="signature-hand"></div>
 
-  </div>
+</div> <!-- FIN bottom -->
 
-</div>
+</div> <!-- FIN content -->
+
+</div> <!-- FIN doc -->
+
 
 <script>
 
@@ -346,13 +356,13 @@ function generate() {
 
   document.fonts.ready.then(() => {
 
-    html2canvas(document.getElementById("doc"), {
+  setTimeout(() => {
 
+    html2canvas(document.getElementById("doc"), {
       scale: 3,
       useCORS: true,
       width: 794,
       height: 1123
-
     }).then(canvas => {
 
       let link = document.createElement("a");
@@ -365,9 +375,10 @@ function generate() {
 
     });
 
-  });
+  }, 300);
 
-}
+});
+
 </script>
 
 </body>
