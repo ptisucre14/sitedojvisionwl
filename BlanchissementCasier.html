@@ -124,57 +124,32 @@ h2 {
 ZONE SIGNATURE BAS DOCUMENT
 ============================= */
 
-.bottom {
-
+.signature-block {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
-  margin-top: 40px;
-
+  align-items: flex-end;
+  margin-top: 30px;
 }
 
 /* LOGOS */
 
 .logo {
-
   width: 70px;
+}
 
+/* BLOC CENTRE (fonction + nom) */
+
+.signataire {
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* SIGNATURE MANUSCRITE */
 
 .signature-hand {
-
   font-family: 'Great Vibes', cursive;
-
   font-size: 48px;
-
-  text-align: center;
-
-  margin-top: 15px;
-
   transform: rotate(-6deg);
-
-}
-
-/* =============================
-CENTRAGE SIGNATAIRE
-============================= */
-
-.center-sign {
-  text-align: center;
-  margin-top: 40px;
-}
-
-/* =============================
-POSITION SIGNATAIRE MANUSCRITE
-============================= */
-
-.signature-position {
-  position: absolute;
-  bottom: 80px;
-  right: 80px;
 }
 
 /* =============================
@@ -303,18 +278,21 @@ DOCUMENT FINAL
 </div>
 
 <!-- SIGNATAIRE CENTRÉ -->
-<div class="center-sign">
-  <p>Fonction :</p>
-  <p id="fonction" class="bold"></p>
+<div class="signature-block">
 
-  <p>Signataire :</p>
-  <p id="nom" class="bold"></p>
+  <!-- CENTRE -->
+  <div class="signataire">
+    <p>Fonction :</p>
+    <p id="fonction" class="bold"></p>
+
+    <p>Signataire :</p>
+    <p id="nom" class="bold"></p>
+  </div>
+
+  <!-- DROITE -->
+  <div id="signatureText" class="signature-hand"></div>
+
 </div>
-
-<!-- SIGNATURE EN BAS DROITE -->
-<div id="signatureText" class="signature-hand signature-position"></div>
-
-</div> <!-- FIN center-sign -->
 
 </div> <!-- FIN bottom -->
 
