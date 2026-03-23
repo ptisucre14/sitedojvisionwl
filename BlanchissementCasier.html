@@ -313,6 +313,8 @@ DOCUMENT FINAL
 
     <div id="signatureText" class="signature-hand"></div>
 
+</div> <!-- FIN center-sign -->
+
 </div> <!-- FIN bottom -->
 
 </div> <!-- FIN content -->
@@ -356,28 +358,28 @@ function generate() {
 
   document.fonts.ready.then(() => {
 
-  setTimeout(() => {
+    setTimeout(() => {
 
-    html2canvas(document.getElementById("doc"), {
+      html2canvas(document.getElementById("doc"), {
 
-      scale: 3,
-      useCORS: true,
-      width: 794,
-      height: 1123
+        scale: 3,
+        useCORS: true,
+        width: 794,
+        height: 1123
 
-    })
+      }).then(canvas => {
 
-.then(canvas => {
+        let link = document.createElement("a");
 
-      let link = document.createElement("a");
+        link.download = "document-rp.png";
 
-      link.download = "document-rp.png";
+        link.href = canvas.toDataURL("image/png");
 
-      link.href = canvas.toDataURL("image/png");
+        link.click();
 
-      link.click();
+      });
 
-    });
+    }, 300); // ← manquait ici
 
   });
 
