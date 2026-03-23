@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ddd;
+  text-align: center;
+}
+
+#doc {
+  position: relative;
+  width: 800px;
+  margin: auto;
+  background: #f4efe7;
+  padding: 30px;
+  text-align: left;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.header {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.section {
+  margin-top: 15px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.left-logos {
+  display: flex;
+  gap: 10px;
+}
+
+.logo {
+  width: 125px;
+  height: auto;
+}
+
+.center-sign {
+  text-align: center;
+  flex: 1;
+  font-size: 16px;
+}
+
+.right-signature {
+  text-align: right;
+}
+
+.signature-img {
+  width: 180px;
+  height: auto;
+}
+
+.signature-hand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 colonnes */
+  gap: 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-grid input,
+.form-grid textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Pour que le textarea prenne toute la largeur */
+.form-grid .full {
+  grid-column: span 2;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Générateur Document Justice RP</h2>
+
+<div class="form-grid">
+ <input id="date" placeholder="Date">
+ <input id="ref" placeholder="Référence">
+ <input id="destinataire" placeholder="Destinataire">
+ <input id="inputSuspect" placeholder="Nom">
+ <input id="numerotelephone" placeholder="Numéro de téléphone">
+ <input id="datedebut" placeholder="Date et heure de début">
+ <input id="datefin" placeholder="Date et heure de fin">
+ <input id="fonctionSignataire"placeholder="Fonction">
+ <input id="nomSignataire"placeholder="Signataire">
+
+<textarea id="charges" placeholder="Eléments demandés un document par ligne" class="full"></textarea>
+</div>
+
+<br>
+<button onclick="generate()">📄 Générer & Télécharger</button><br><br>
+
+<div id="doc">
+
+<div class="header">
+  <img src="banniere.png" style="width:100%;">
+</div>
+
+<h1>RÉQUISITION JUDICIAIRE DE GÉOLOCALISATION TÉLÉPHONIQUE (SUR PÉRIODE DÉTERMINÉE)</h1>
+
+<div class="section">
+<p><span class="bold">Date :</span> <span id="d"></span></p>
+<p><span class="bold">Référence :</span> <span id="r"></span></p>
+<p><span class="bold">À l’attention de :</span> <span id="destinataire1"></span></p>
+</div>
+
+<hr>
+
+<p>Par la présente réquisition judiciaire, le Bureau du Procureur requiert <span class="bold">la transmission des données de géolocalisation téléphonique relatives à la personne ou à la ligne mentionnée ci-après, sur une période déterminée.</span></p> 
+
+<p>Les informations demandées devront être communiquées dans un <span class="bold">délai maximal de sept (7) jours </span> à compter de la réception de la présente réquisition.</p> 
+
+<p>Le Bureau du Procureur exige l’exécution diligente de cette demande dès sa notification ; tout refus, retard injustifié ou toute entrave à son exécution est susceptible d’entraîner des poursuites conformément au Code pénal de l’État de San Andreas.</p> 
+
+<p class="bold">Les informations transmises dans le cadre de cette procédure demeurent strictement couvertes par le secret de l’instruction.</p>
+
+<p><span class="bold">Personne / Ligne concernée :</span> <span id="suspect"></span> </span> <span id="numerotelephone1"></span></p>
+
+<p><span class="bold">Période concernée :</span></p>
+<p> Du </span> <span id="datedebut1"></span> au </span> <span id="datefin1"></span></p>
+
+<p class="bold">Données téléphoniques et éléments demandés :</p>
+
+<ul id="chargesList"></ul>
+
+<hr>
+
+<p>Fait à Los Santos en date du : <span id="d2"></span></p>
+
+<div class="bottom">
+
+  <div class="left-logos">
+    <img src="logo1.png" class="logo">
+    <img src="logo2.png" class="logo">
+  </div>
+
+<div class="center-sign">
+  <p>
+    Fonction : 
+    <span id="fonction" class="bold"></span>
+  </p>
+  <p>
+    Signataire : 
+    <span id="nom" class="bold"></span>
+  </p>
+</div>
+
+</div>
+
+<div id="signatureText" class="signature-hand"></div>
+
+</div>
+
+<script>
+function generate() {
+
+  let date = document.getElementById("date").value;
+  let ref = document.getElementById("ref").value;
+  let destinataire = document.getElementById("destinataire").value;
+  let suspect = document.getElementById("inputSuspect").value;
+  let numerotelephone = document.getElementById("numerotelephone").value;
+  let datedebut = document.getElementById("datedebut").value;
+  let datefin = document.getElementById("datefin").value;
+  let fonction = document.getElementById("fonctionSignataire").value;
+  let nom = document.getElementById("nomSignataire").value;
+
+  // Accusations
+  let chargesInput = document.getElementById("charges").value;
+  let chargesArray = chargesInput.split("\n");
+
+  // Remplissage
+  document.getElementById("d").innerText = date;
+  document.getElementById("d2").innerText = date;
+  document.getElementById("r").innerText = ref;
+  document.getElementById("destinataire1").innerText = destinataire;
+  document.getElementById("numerotelephone1").innerText = numerotelephone;
+  document.getElementById("datedebut1").innerText = datedebut;
+  document.getElementById("datefin1").innerText = datefin;
+
+  document.getElementById("suspect").innerText =
+    suspect || "Nom inconnu";
+
+
+  document.getElementById("fonction").innerText =
+    fonction || "";
+
+  document.getElementById("nom").innerText =
+    nom || "";
+
+  // Signature manuscrite
+  document.getElementById("signatureText").innerText =
+    nom || "";
+
+  // Liste dynamique
+  let list = document.getElementById("chargesList");
+  list.innerHTML = "";
+
+  chargesArray.forEach(charge => {
+    if (charge.trim() !== "") {
+      let li = document.createElement("li");
+      li.textContent = charge;
+      list.appendChild(li);
+    }
+  });
+
+  // Export PNG
+  html2canvas(document.getElementById("doc")).then(canvas => {
+    let link = document.createElement("a");
+    link.download = "document-rp.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+</body>
+</html>
